@@ -1,0 +1,71 @@
+{
+  "data": {
+    "id": 1,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z",
+    "translated": {
+      "en": {
+        "story": "Founded in 1995, our company has been serving customers with premium marble and stone products for over 25 years. We pride ourselves on quality, reliability, and exceptional customer service.",
+        "mission": "To provide the highest quality marble and stone products with expert installation services to enhance the beauty of homes and businesses.",
+        "vision": "To be the leading marble and stone supplier in Saudi Arabia, known for excellence and customer satisfaction.",
+        "values": "Quality, Integrity, Innovation, and Customer Focus guide everything we do."
+      },
+      "ar": {
+        "story": "تأسست شركتنا عام 1995، وقدمنا منتجات الرخام والحجر الفاخرة للعملاء لأكثر من 25 سنة. نفخر بالجودة والموثوقية والخدمة المميزة للعملاء.",
+        "mission": "توفير أعلى جودة من منتجات الرخام والحجر مع خدمات التركيب المتخصصة لتحسين جمال المنازل والشركات.",
+        "vision": "أن نكون الموردين الرائدين للرخام والحجر في المملكة العربية السعودية، معروفين بالتميز ورضا العملاء.",
+        "values": "الجودة، النزاهة، الابتكار، والتركيز على العملاء يوجهون كل ما نفعله."
+      }
+    },
+    "statistics": [
+      {
+        "label": {
+          "en": "Years in Business",
+          "ar": "سنوات في العمل"
+        },
+        "value": "25+"
+      },
+      {
+        "label": {
+          "en": "Satisfied Customers",
+          "ar": "عملاء راضين"
+        },
+        "value": "5000+"
+      },
+      {
+        "label": {
+          "en": "Products Available",
+          "ar": "منتجات متاحة"
+        },
+        "value": "200+"
+      }
+    ],
+    "team": [
+      {
+        "id": 1,
+        "name": "Ahmed Al-Saba",
+        "role": {
+          "en": "Founder & CEO",
+          "ar": "المؤسس والرئيس التنفيذي"
+        },
+        "image_url": "/team-member-1.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Fatima Al-Mansouri",
+        "role": {
+          "en": "Operations Manager",
+          "ar": "مدير العمليات"
+        },
+        "image_url": "/team-member-2.jpg"
+      }
+    ],
+    "_links": {
+      "self": "/api/about",
+      "edit": "/api/about/edit",
+      "delete": "/api/about"
+    }
+  },
+  "message": "successful",
+  "statusCode": 200
+}

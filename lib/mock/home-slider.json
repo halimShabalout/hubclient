@@ -1,0 +1,91 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "image_url": "/premium-marble-background.jpg",
+      "title": {
+        "en": "Premium Marble Selection",
+        "ar": "اختيار الرخام الفاخر"
+      },
+      "subtitle": {
+        "en": "Discover the finest marble from around the world",
+        "ar": "اكتشف أفضل الرخام من جميع أنحاء العالم"
+      },
+      "cta_text": {
+        "en": "Explore Products",
+        "ar": "استكشف المنتجات"
+      },
+      "cta_link": "/products"
+    },
+    {
+      "id": 2,
+      "image_url": "/luxury-stone-texture.jpg",
+      "title": {
+        "en": "Luxury Stone Finishes",
+        "ar": "تشطيبات الحجر الفاخرة"
+      },
+      "subtitle": {
+        "en": "Transform your space with sophisticated finishes",
+        "ar": "حول مساحتك بتشطيبات متقنة"
+      },
+      "cta_text": {
+        "en": "Learn More",
+        "ar": "اعرف المزيد"
+      },
+      "cta_link": "/categories"
+    },
+    {
+      "id": 3,
+      "image_url": "/elegant-marble-pattern.jpg",
+      "title": {
+        "en": "Elegant Patterns",
+        "ar": "أنماط أنيقة"
+      },
+      "subtitle": {
+        "en": "Add timeless beauty to any room",
+        "ar": "أضف جمالًا خالدًا لأي غرفة"
+      },
+      "cta_text": {
+        "en": "Browse Collection",
+        "ar": "تصفح المجموعة"
+      },
+      "cta_link": "/products"
+    },
+    {
+      "id": 4,
+      "image_url": "/professional-marble-installation.jpg",
+      "title": {
+        "en": "Expert Installation",
+        "ar": "التركيب المتخصص"
+      },
+      "subtitle": {
+        "en": "Professional quality guaranteed",
+        "ar": "الجودة المهنية مضمونة"
+      },
+      "cta_text": {
+        "en": "Contact Us",
+        "ar": "اتصل بنا"
+      },
+      "cta_link": "/contact"
+    },
+    {
+      "id": 5,
+      "image_url": "/high-quality-marble-slab.jpg",
+      "title": {
+        "en": "Quality Assurance",
+        "ar": "ضمان الجودة"
+      },
+      "subtitle": {
+        "en": "Every product meets our highest standards",
+        "ar": "كل منتج يلبي معايرنا الأعلى"
+      },
+      "cta_text": {
+        "en": "View Details",
+        "ar": "عرض التفاصيل"
+      },
+      "cta_link": "/aboutus"
+    }
+  ],
+  "message": "successful",
+  "statusCode": 200
+}
