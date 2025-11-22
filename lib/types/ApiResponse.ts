@@ -3,8 +3,14 @@ export type ApiResponse<T> = {
   meta: {
     total: number;
     count: number;
+    page: number;
+    limit: number;
   };
-  links: any;
+  links: {
+    self: string;
+    next: string | null;
+    prev: string | null;
+  };
   message: string;
   statusCode: number;
 };

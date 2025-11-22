@@ -1,14 +1,15 @@
 'use client'
 
 import { useLanguage } from '@/components/language-provider'
-import { useAboutUs } from '@/lib/hooks'
+import { useAboutUs } from '@/lib/hooks/useAboutUs'
 import Link from 'next/link'
 
 export function AboutUsSection() {
   const { language, direction, message } = useLanguage()
-  const { aboutUs, loading } = useAboutUs()
+  const { data: response, isLoading } = useAboutUs(language)
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  if (loading || !aboutUs) {
+  if (isLoading || !response?.data?.length) {
     return (
       <section className={`py-20 bg-secondary/50 ${direction === 'rtl' ? 'rtl' : ''}`}>
         <div className="container mx-auto px-4 text-center">
@@ -18,7 +19,8 @@ export function AboutUsSection() {
     )
   }
 
-  const data = aboutUs.translated[language]
+  const aboutUs = response.data[0]
+  const data = aboutUs.translated
 
   return (
     <section className={`py-20 bg-secondary/50 ${direction === 'rtl' ? 'rtl' : ''}`}>
@@ -27,12 +29,13 @@ export function AboutUsSection() {
           {/* Image */}
           <div className="h-96 rounded-lg overflow-hidden hover-lift">
             <img
-              src="/marble-company-office.jpg"
+              src={aboutUs.imageUrl ? `${baseUrl}${aboutUs.imageUrl}` : "/images/no_image.png"}
               alt={data.mission}
               className="w-full h-full object-cover"
             />
           </div>
 
+          {/* Text */}
           <div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground slide-in-up">
               {message('aboutus.title')}
