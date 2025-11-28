@@ -31,7 +31,7 @@ const CategoriesGrid = () => {
   return (
     <section className={`py-20 ${direction === 'rtl' ? 'rtl' : ''}`}>
       <div className="container mx-auto px-4">
-        <h1 className="text-5xl md:text-6xl font-bold text-center mb-4 text-primary">
+        <h1 className="text-5xl md:text-6xl  font-bold text-center mb-4 text-foreground">
           {message('categories.all', 'All Categories')}
         </h1>
 

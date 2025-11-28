@@ -26,7 +26,7 @@ const ProductsGrid = () => {
   return (
     <section className={`py-20 ${direction === 'rtl' ? 'rtl' : ''}`}>
       <div className="container mx-auto px-4">
-        <h1 className="text-5xl md:text-6xl font-bold text-center mb-4 text-primary">
+        <h1 className="text-5xl md:text-6xl font-bold text-center mb-4 text-foreground">
           {message('our.products', 'Our Products')}
         </h1>
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">

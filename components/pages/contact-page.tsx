@@ -63,7 +63,7 @@ const ContactPage = () => {
     <div className={direction === 'rtl' ? 'rtl' : ''}>
       <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
-          <h1 className="text-5xl md:text-6xl font-bold text-primary mb-4 slide-in-up">
+          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4 slide-in-up">
             {message('contact.title', 'Contact Us')}
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl slide-in-up" style={{ animationDelay: '0.1s' }}>
@@ -135,7 +135,7 @@ const ContactPage = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="h-full flex flex-col">
-              <h2 className="text-3xl font-bold text-primary mb-6">
+              <h2 className="text-3xl font-bold text-foreground mb-6">
                 {message('contact.form.title', 'Send us a Message')}
               </h2>
               {submitted && (
@@ -192,7 +192,7 @@ const ContactPage = () => {
             </div>
 
             <div className="slide-in-up h-full flex flex-col" style={{ animationDelay: '0.1s' }}>
-              <h2 className="text-3xl font-bold text-primary mb-6">
+              <h2 className="text-3xl font-bold text-foreground mb-6">
                 {message('contact.location.title', 'Find Us')}
               </h2>
               <div className="flex-1 bg-secondary rounded-lg overflow-hidden hover-lift">
