@@ -1,7 +1,7 @@
 {
   "data": {
     "en": {
-      "compnay.name": "Elegant Torch",
+      "compnay.name": "Alshoaala Marble",
       "home": "Home",
       "categories": "Categories",
       "products": "Products",
@@ -70,7 +70,7 @@
     "ar": {
       "compnay.name": "الشعلة الراقية",
       "home": "الرئيسية",
-      "categories": "الفئات",
+      "categories": "التصنيفات",
       "products": "المنتجات",
       "aboutus": "معلومات عنا",
       "contact": "اتصل بنا",
@@ -82,8 +82,8 @@
       "categories.top": "أصنافنا",
       "categories.title": "استكشف أصنافنا",
       "categories.subtitle": "تصفح مجموعتنا الواسعة من منتجات الرخام والحجر الفاخرة",
-      "categories.all": "جميع الفئات",
-      "categories.all.subtitle": "تصفح مجموعتنا الكاملة من فئات الرخام والحجر",
+      "categories.all": "جميع التصنيفات",
+      "categories.all.subtitle": "تصفح مجموعتنا الكاملة من تصنيفات الرخام والحجر",
       "categories.viewproducts": "عرض المنتجات",
       "products.label": "منتجاتنا",
       "products.title": "أفضل المنتجات",

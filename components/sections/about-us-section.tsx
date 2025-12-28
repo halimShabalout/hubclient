@@ -3,12 +3,12 @@
 import { useLanguage } from '@/components/language-provider'
 import { useAboutUs } from '@/lib/hooks/useAboutUs'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const AboutUsSection = () => {
   const { language, direction, message } = useLanguage()
   const { data: response, isLoading } = useAboutUs(language)
   const baseUrl = process.env.NEXT_PUBLIC_API_URL
-
 
   if (isLoading || !response?.data) {
     return (
@@ -19,18 +19,31 @@ const AboutUsSection = () => {
       </section>
     )
   }
-  const aboutUs = response.data 
+  const aboutUs = response.data
   const translated = aboutUs.translated
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    'name': 'Alshoaala Marble',
+    'description': translated.story,
+    'url': '/aboutus',
+    'image': aboutUs.imageUrl ? `${baseUrl}${aboutUs.imageUrl}` : '/images/no_image.png',
+  }
 
   return (
     <section className={`py-20 bg-secondary/50 ${direction === 'rtl' ? 'rtl' : ''}`}>
+
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="h-96 rounded-lg overflow-hidden hover-lift">
-            <img
-              src={aboutUs.imageUrl ? `${baseUrl}${aboutUs.imageUrl}` : "/images/no_image.png"}
-              alt={translated.mission}
-              className="w-full h-full object-cover"
+          <div className="relative h-96 rounded-lg overflow-hidden  hover-lift">
+            <Image
+              src={aboutUs.imageUrl ? `${baseUrl}${aboutUs.imageUrl}` : '/images/no_image.png'}
+              alt="About Alshoaala Marble – Premium Natural Marble in Jeddah"
+              fill
+              objectFit="cover"
+              priority={true}
+              className="smooth-transition"
             />
           </div>
 
@@ -46,9 +59,11 @@ const AboutUsSection = () => {
             </p>
             <Link
               href="/aboutus"
+              title="Read more about Alshoaala Marble"
+              aria-label="Read more about Alshoaala Marble"
               className="inline-block px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover-lift"
             >
-              {message('aboutus.readmore')}
+              {message('aboutus.readmore', 'Read More')}
             </Link>
           </div>
         </div>

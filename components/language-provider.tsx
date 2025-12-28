@@ -1,10 +1,10 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
-import type { Language } from '@/lib/types/rw'
 import translationsData from '../lib/mock/translations.json'
 
 const translations = translationsData.data as Record<string, Record<string, string>>
+type Language = "en" | "ar";
 
 interface LanguageContextType {
   language: Language

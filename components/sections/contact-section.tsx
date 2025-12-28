@@ -57,8 +57,37 @@ const ContactSection = () => {
     },
   ]
 
+  // Structured Data for Organization
+  const structuredData = contactInfo ? {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Alshoaala Marble",
+    "url": "/",
+    "logo": "/logo.png",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": contactInfo.phone,
+        "contactType": "customer service"
+      },
+      {
+        "@type": "ContactPoint",
+        "email": contactInfo.email,
+        "contactType": "customer service"
+      }
+    ],
+    "sameAs": [`https://wa.me/${contactInfo.whatsapp}`]
+  } : null
+
   return (
     <section className={`py-20 bg-secondary/50 ${direction === 'rtl' ? 'rtl' : ''}`}>
+      {structuredData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      )}
+
       <div className="container mx-auto px-4 max-w-2xl">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
           {message('contact.title', 'Contact Us')}
@@ -69,7 +98,10 @@ const ContactSection = () => {
         </p>
 
         {submitted && (
-          <div className="mb-6 p-4 bg-green-100 text-green-800 rounded-lg text-center font-semibold fade-in">
+          <div
+            className="mb-6 p-4 bg-green-100 text-green-800 rounded-lg text-center font-semibold fade-in"
+            role="alert"
+          >
             {message('contact.form.success', 'Message sent successfully!')}
           </div>
         )}
@@ -85,6 +117,7 @@ const ContactSection = () => {
                 value={formData[field.name as keyof typeof formData]}
                 onChange={handleChange}
                 required
+                aria-label={field.placeholder}
                 className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-accent bg-background text-foreground smooth-transition"
               />
             ))}
@@ -99,6 +132,7 @@ const ContactSection = () => {
               value={formData[field.name as keyof typeof formData]}
               onChange={handleChange}
               required
+              aria-label={field.placeholder}
               className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-accent bg-background text-foreground smooth-transition"
             />
           ))}
@@ -110,6 +144,7 @@ const ContactSection = () => {
             onChange={handleChange}
             required
             rows={5}
+            aria-label={message('contact.form.message', 'Your Message')}
             className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-accent bg-background text-foreground smooth-transition"
           />
 
@@ -152,6 +187,7 @@ const ContactSection = () => {
                 <a
                   href={`https://wa.me/${contactInfo.whatsapp}`}
                   className="text-accent hover:underline"
+                  aria-label={`Contact us on WhatsApp ${contactInfo.whatsapp}`}
                 >
                   {contactInfo.whatsapp}
                 </a>

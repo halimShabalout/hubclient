@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Link from "next/link";
 import { useLanguage } from "@/components/language-provider";
@@ -80,6 +80,7 @@ const Footer = () => {
                   <Link
                     href={link.href}
                     className="opacity-80 hover:opacity-100 smooth-transition"
+                    title={message(link.key)}
                   >
                     {message(link.key)}
                   </Link>
@@ -92,9 +93,9 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">{message("footer.contact")}</h4>
             <ul className="space-y-2 text-sm opacity-80">
-              <li>{contactInfo?.phone}</li>
-              <li>{contactInfo?.email}</li>
-              <li>{contactInfo?.translated?.address}</li>
+              {contactInfo?.phone && <li>{contactInfo.phone}</li>}
+              {contactInfo?.email && <li>{contactInfo.email}</li>}
+              {contactInfo?.translated?.address && <li>{contactInfo.translated.address}</li>}
             </ul>
           </div>
 
@@ -110,6 +111,7 @@ const Footer = () => {
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`Follow us on ${item.icon}`}
                     className="p-2 hover:bg-primary-foreground hover:text-primary rounded-lg smooth-transition"
                   >
                     {IconComponent ? (

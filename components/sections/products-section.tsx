@@ -4,6 +4,7 @@ import { useLanguage } from '@/components/language-provider'
 import { useLandingProducts } from '@/lib/hooks/useProducts'
 import { useIntersectionObserver } from '@/hooks/use-intersection-observer'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const ProductsSection = () => {
   const { language, direction, message } = useLanguage()
@@ -15,15 +16,37 @@ const ProductsSection = () => {
   const products = data?.data || []
   const featuredProducts = products.slice(0, 6)
 
+  // Structured Data JSON-LD for featured products
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: featuredProducts.map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Product',
+        name: product.translated.name,
+        image: product.mainImage ? `${baseUrl}${product.mainImage}` : '/images/no_image.png',
+        description: product.translated.description,
+        url: `/products/${product.id}`,
+      },
+    })),
+  }
+
   return (
     <section className={`py-20 ${direction === 'rtl' ? 'rtl' : ''}`} ref={ref}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
       <div className="container mx-auto px-4">
         <h2
           className={`text-4xl md:text-5xl font-bold text-center mb-4 text-foreground ${
             isVisible ? 'fade-in' : 'opacity-0'
           }`}
         >
-          {message('products.title', 'Featured Products')}
+          {message('products.title', 'Featured Marble Products – Alshoaala Marble')}
         </h2>
 
         <p
@@ -49,6 +72,8 @@ const ProductsSection = () => {
                 <Link
                   key={product.id}
                   href={`/products/${product.id}`}
+                  title={`View details for ${product.translated.name}`}
+                  aria-label={`View details for ${product.translated.name}`}
                   className={`bg-card rounded-lg overflow-hidden hover-lift hover-glow group ${
                     isVisible ? 'scale-in' : 'opacity-0'
                   }`}
@@ -57,14 +82,18 @@ const ProductsSection = () => {
                   }}
                 >
                   <div className="relative h-48 overflow-hidden">
-                    <img
+                    <Image
                       src={
                         product.mainImage
                           ? `${baseUrl}${product.mainImage}`
                           : '/images/no_image.png'
                       }
-                      alt={product.translated.name}
-                      className="w-full h-full object-cover group-hover:scale-110 smooth-transition"
+                      alt={`رخام طبيعي ${product.translated.name} – Alshoaala Marble`}
+                      fill
+                      objectFit="cover"
+                      className="group-hover:scale-110 smooth-transition"
+                      priority={false}
+                      sizes="(max-width: 768px) 100vw, 20vw"
                     />
                   </div>
 
@@ -77,7 +106,10 @@ const ProductsSection = () => {
                       {product.translated.description}
                     </p>
 
-                    <button className="w-full px-4 py-2 bg-primary text-primary-foreground rounded hover-lift button-pulse text-sm font-medium">
+                    <button
+                      className="w-full px-4 py-2 bg-primary text-primary-foreground rounded hover-lift button-pulse text-sm font-medium"
+                      aria-label={`View details for ${product.translated.name}`}
+                    >
                       {message('products.viewdetails', 'View Details')}
                     </button>
                   </div>
@@ -94,6 +126,8 @@ const ProductsSection = () => {
                 style={{
                   animationDelay: isVisible ? '0.3s' : '0s',
                 }}
+                title="View all products"
+                aria-label="View all products"
               >
                 {message('showmore', 'Show More')}
               </Link>
