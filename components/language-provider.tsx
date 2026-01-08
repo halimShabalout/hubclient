@@ -41,7 +41,7 @@ export function LanguageProvider({
     [language]
   )
 
-  const message = (key: string) => messages[key] ?? key
+const message = (key: string, fallback?: string) => messages[key] ?? fallback ?? key
 
   const direction: 'ltr' | 'rtl' =
     RTL_LANGS.includes(language) ? 'rtl' : 'ltr'

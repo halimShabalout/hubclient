@@ -11,72 +11,84 @@ interface CategoriesGridProps {
 }
 
 const CategoriesGrid = ({ categories, lang }: CategoriesGridProps) => {
-  const direction: 'ltr' | 'rtl' = lang === 'ar' ? 'rtl' : 'ltr'
-
-
   const { message } = useLanguage()
-
+  const direction: 'ltr' | 'rtl' = lang === 'ar' ? 'rtl' : 'ltr'
   const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? ''
-  const brandName = lang === 'ar' ? 'الشعلة للرخام' : 'Alshoaala Marble'
 
   return (
-    <section className="py-20" dir={direction}>
+    <section className="py-20 bg-secondary/50" dir={direction}>
       <div className="container mx-auto px-4">
-        <h1 className="text-5xl md:text-6xl font-bold text-center mb-4 text-foreground">
-          {message('categories.all', 'All Categories')}
-        </h1>
+        <h2
+          className={"text-4xl md:text-5xl font-bold mb-4 text-center"}
+        >
+          {message('categories.title', 'Explore Our Marble Categories')}
+        </h2>
 
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          {message(
-            'categories.all.subtitle',
-            'Browse our complete selection of marble and stone categories'
-          )}
+        <p
+          className={"text-muted-foreground mb-12 max-w-2xl mx-auto text-center"}
+        >
+          {message('categories.subtitle', 'Explore our diverse range of marble and stone categories')}
         </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {categories.map((category, index) => (
-            <Link
+            <div
               key={category.id}
-              href={`/${lang}/products?category=${category.id}`}
-              title={category.translated?.name}
-              className="group"
+              className="group relative w-full h-84 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
             >
-              <div className="bg-card rounded-lg overflow-hidden border border-border hover:border-accent transition-all h-full flex flex-col">
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={
-                      category.imageUrl
-                        ? `${baseUrl}${category.imageUrl}`
-                        : '/images/no_image.png'
-                    }
-                    alt={`${category.translated?.name} – ${brandName}`}
-                    fill
-                    priority={index < 3}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300" />
-                </div>
+              {/* Image */}
+              <div className="relative h-full w-full overflow-hidden rounded-xl">
+                <Image
+                  src={
+                    category.imageUrl
+                      ? `${baseUrl}${category.imageUrl}`
+                      : '/images/no_image.png'
+                  }
+                  alt={category.translated.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-contain group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
 
-                <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-accent transition-colors">
+              {/* Overlay */}
+              <div
+                className="
+              absolute bottom-0 left-0 right-0
+              min-h-[35%]
+              bg-black/40 backdrop-blur-sm
+              p-5
+              flex flex-col justify-between
+            "
+              >
+                <div>
+                  <h3 className="text-xl md:text-2xl font-semibold text-white group-hover:text-accent transition-colors">
                     {category.translated?.name}
                   </h3>
 
-                  <p className="text-sm text-muted-foreground flex-1">
-                    {category.translated?.description}
-                  </p>
+                  {category.translated?.description && (
+                    <p className="text-sm md:text-base text-white/80 mt-1 line-clamp-2">
+                      {category.translated.description}
+                    </p>
+                  )}
+                </div>
 
-                  <span className="mt-4 inline-flex items-center justify-center px-4 py-2 bg-accent text-accent-foreground rounded font-semibold text-sm group-hover:bg-accent/90 transition-colors">
+                {/* Button */}
+                <div className='mt-2'>
+                  <Link
+                    href={`/${lang}/products?category=${category.id}`}
+                    className="inline-block w-full text-center px-6 py-2 bg-accent text-accent-foreground font-semibold rounded-md shadow hover:scale-95 transition-transform duration-300 text-sm md:text-base"
+
+                  >
                     {message('categories.viewproducts', 'View Products')}
-                  </span>
+                  </Link>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
     </section>
+
   )
 }
 
