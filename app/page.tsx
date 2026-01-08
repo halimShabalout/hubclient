@@ -1,17 +1,10 @@
-import HeroSection from '@/components/sections/hero-section';
-import CategoriesSection from '@/components/sections/categories-section';
-import ProductsSection from '@/components/sections/products-section';
-import AboutUsSection from '@/components/sections/about-us-section';
-import ContactSection from '@/components/sections/contact-section';
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
-export default function Home() {
-  return (
-    <main className="flex flex-col">
-      <HeroSection />
-      <CategoriesSection />
-      <ProductsSection />
-      <AboutUsSection />
-      <ContactSection />
-    </main>
-  );
+export default async function Page() {
+  const cookieStore = await cookies()
+  
+  const lang = cookieStore.get('NEXT_LOCALE')?.value || 'ar'
+
+  redirect(`/${lang}`)
 }

@@ -2,103 +2,102 @@
 
 import { useLanguage } from '@/components/language-provider'
 import Link from 'next/link'
-import { useLandingCategories } from '@/lib/hooks/useCategories'
 import Image from 'next/image'
+import { Category } from '@/lib/types/Category'
 
-const CategoriesSection = () => {
-  const { language, direction, message } = useLanguage()
-  const { data, isLoading, error } = useLandingCategories(language)
+interface CategoriesSectionProps {
+  categories: Category[]
+  lang: 'en' | 'ar'
+}
+
+const CategoriesSection = ({ categories, lang }: CategoriesSectionProps) => {
+  const { direction, message } = useLanguage()
   const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
-  const categories = data?.data || []
-
-  // Structured Data JSON-LD for categories
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    itemListElement: categories.map((category, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: category.translated.name,
-      url: `/products?category=${category.id}`,
-    })),
+  if (!categories || categories.length === 0) {
+    return null
   }
 
   return (
-    <section className={`py-20 bg-secondary/50 ${direction === 'rtl' ? 'rtl' : ''}`}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+    <section
+      className="py-20 bg-secondary/50"
+      dir={direction}
+    >
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
-          {message('categories.title', 'Explore Our Marble Categories – Alshoaala Marble')}
+        {/* Title */}
+        <h2
+          className={`text-4xl md:text-5xl font-bold mb-4 ${
+            direction === 'rtl' ? 'text-right' : 'text-center'
+          }`}
+        >
+          {message('categories.title', 'Explore Our Marble Categories')}
         </h2>
 
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+        {/* Subtitle */}
+        <p
+          className={`text-muted-foreground mb-12 max-w-2xl mx-auto ${
+            direction === 'rtl' ? 'text-right' : 'text-center'
+          }`}
+        >
           {message(
             'categories.subtitle',
             'Explore our diverse range of marble and stone categories'
           )}
         </p>
 
-        {isLoading && (
-          <div className="text-center py-12">
-            <p>{message('loading', 'Loading...')}</p>
-          </div>
-        )}
+        {/* Categories Grid */}
+        <div
+          className={`grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-10 ${
+            direction === 'rtl' ? 'text-right' : 'text-left'
+          }`}
+        >
+          {categories.map(category => (
+            <Link
+              key={category.id}
+              href={`/${lang}/products?category=${category.id}`}
+              className="group block"
+            >
+              <div className="relative h-48 rounded-xl overflow-hidden mb-4 hover-lift">
+                <Image
+                  src={
+                    category.imageUrl
+                      ? `${baseUrl}${category.imageUrl}`
+                      : '/images/no_image.png'
+                  }
+                  alt={category.translated.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 20vw"
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors" />
+              </div>
 
-        {error && (
-          <div className="text-center py-12 text-red-500">
-            <p>{message('loading.error', 'Failed to load data')}</p>
-          </div>
-        )}
+              <h3 className="text-lg font-semibold group-hover:text-accent transition-colors">
+                {category.translated.name}
+              </h3>
 
-        {!isLoading && !error && (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-8">
-              {categories.map((category) => (
-                <Link
-                  key={category.id}
-                  href={`/products?category=${category.id}`}
-                  title={`عرض منتجات ${category.translated.name}`}
-                  aria-label={`عرض منتجات ${category.translated.name}`}
-                  className="group cursor-pointer"
-                >
-                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 hover-lift">
-                    <Image
-                      src={category.imageUrl ? `${baseUrl}${category.imageUrl}` : '/images/no_image.png'}
-                      alt={`رخام طبيعي ${category.translated.name} – Alshoaala Marble`}
-                      fill
-                      objectFit="cover"
-                      className="group-hover:scale-110 smooth-transition"
-                      priority={false}
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                    />
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 smooth-transition" />
-                  </div>
+              {category.translated.description && (
+                <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+                  {category.translated.description}
+                </p>
+              )}
+            </Link>
+          ))}
+        </div>
 
-                  <h3 className="text-lg font-semibold text-foreground group-hover:text-accent smooth-transition">
-                    {category.translated.name}
-                  </h3>
-
-                  <p className="text-sm text-muted-foreground mt-2">
-                    {category.translated.description}
-                  </p>
-                </Link>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <Link
-                href="/categories"
-                className="inline-block px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover-lift"
-              >
-                {message('showmore', 'Show More')}
-              </Link>
-            </div>
-          </>
-        )}
+        {/* Show More Button */}
+        <div
+          className={`${
+            direction === 'rtl' ? 'text-right' : 'text-center'
+          }`}
+        >
+          <Link
+            href={`/${lang}/categories`}
+            className="inline-block px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover-lift"
+          >
+            {message('showmore', 'Show More')}
+          </Link>
+        </div>
       </div>
     </section>
   )

@@ -1,60 +1,26 @@
 'use client'
 
-import { useLanguage } from '@/components/language-provider'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useAllCategories } from '@/lib/hooks/useCategories'
+import { useLanguage } from '@/components/language-provider'
+import { Category } from '@/lib/types/Category'
 
-const CategoriesGrid = () => {
-  const { language, direction, message } = useLanguage()
-  const { data, isLoading, error } = useAllCategories(language)
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL
+interface CategoriesGridProps {
+  categories: Category[]
+  lang: 'en' | 'ar'
+}
 
-  if (isLoading) {
-    return (
-      <section className="py-20 text-center text-lg">
-        {message('loading', 'Loading...')}
-      </section>
-    )
-  }
+const CategoriesGrid = ({ categories, lang }: CategoriesGridProps) => {
+  const direction: 'ltr' | 'rtl' = lang === 'ar' ? 'rtl' : 'ltr'
 
-  if (error || !data?.data) {
-    return (
-      <section className="py-20 text-center text-lg text-red-500">
-        {message('loading.error', 'Failed to load data.')}
-      </section>
-    )
-  }
 
-  const categories = data.data
+  const { message } = useLanguage()
 
-  /* --------------------------- Structured Data --------------------------- */
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: message('categories.all', 'All Categories'),
-    description: message(
-      'categories.all.subtitle',
-      'Browse our complete selection of marble and stone categories'
-    ),
-    hasPart: categories.map((category) => ({
-      '@type': 'CollectionPage',
-      name: category.translated.name,
-      description: category.translated.description,
-      url: `/products?category=${category.id}`,
-      image: category.imageUrl
-        ? `${baseUrl}${category.imageUrl}`
-        : '/images/no_image.png',
-    })),
-  }
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? ''
+  const brandName = lang === 'ar' ? 'الشعلة للرخام' : 'Alshoaala Marble'
 
   return (
-    <section className={`py-20 ${direction === 'rtl' ? 'rtl' : ''}`}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
-
+    <section className="py-20" dir={direction}>
       <div className="container mx-auto px-4">
         <h1 className="text-5xl md:text-6xl font-bold text-center mb-4 text-foreground">
           {message('categories.all', 'All Categories')}
@@ -68,14 +34,14 @@ const CategoriesGrid = () => {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <Link
               key={category.id}
-              href={`/products?category=${category.id}`}
-              title={category.translated.name}
+              href={`/${lang}/products?category=${category.id}`}
+              title={category.translated?.name}
               className="group"
             >
-              <div className="bg-card rounded-lg overflow-hidden border border-border hover:border-accent smooth-transition hover-lift h-full flex flex-col">
+              <div className="bg-card rounded-lg overflow-hidden border border-border hover:border-accent transition-all h-full flex flex-col">
                 <div className="relative h-56 overflow-hidden">
                   <Image
                     src={
@@ -83,8 +49,9 @@ const CategoriesGrid = () => {
                         ? `${baseUrl}${category.imageUrl}`
                         : '/images/no_image.png'
                     }
-                    alt={`${category.translated.name} – Alshoaala Marble`}
+                    alt={`${category.translated?.name} – ${brandName}`}
                     fill
+                    priority={index < 3}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
@@ -92,12 +59,12 @@ const CategoriesGrid = () => {
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-accent smooth-transition">
-                    {category.translated.name}
+                  <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-accent transition-colors">
+                    {category.translated?.name}
                   </h3>
 
                   <p className="text-sm text-muted-foreground flex-1">
-                    {category.translated.description}
+                    {category.translated?.description}
                   </p>
 
                   <span className="mt-4 inline-flex items-center justify-center px-4 py-2 bg-accent text-accent-foreground rounded font-semibold text-sm group-hover:bg-accent/90 transition-colors">
