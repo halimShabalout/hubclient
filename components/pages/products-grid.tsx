@@ -19,72 +19,103 @@ const ProductsGrid = ({ products, lang }: ProductsGridProps) => {
   if (!products.length)
     return <p className="text-center py-20">{message('products.empty', 'No products found')}</p>
 
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    itemListElement: products.map((product, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: product.translated.name,
-      url: `/${lang}/products/${product.id}`,
-    })),
-  }
-
   return (
-    <section className="py-20" dir={direction}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+    <section
+      className="py-20 bg-secondary/50"
+      dir={direction}
+    >
       <div className="container mx-auto px-4">
-        <h1 className="text-5xl md:text-6xl font-bold text-center mb-4 text-foreground">
-          {message('our.products', 'Our Products')}
-        </h1>
+        {/* Title */}
+        <h2
+          className={"text-4xl md:text-5xl font-bold mb-4 text-center"}
+        >
+          {message('products.title', 'Featured Products')}
+        </h2>
 
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+        {/* Subtitle */}
+        <p
+          className={"text-muted-foreground mb-12 max-w-2xl mx-auto text-center"}
+        >
           {message(
-            'products.all.title',
-            'Browse our collection of premium marble and stone products'
+            'products.subtitle',
+            'Handpicked selection of our best-selling marble and stone products'
           )}
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
+        {/* Products Grid */}
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 ${direction === 'rtl' ? 'text-right' : 'text-left'}`}>
+
+          {products.map((product, idx) => (
             <div
               key={product.id}
-              className="group bg-card rounded-lg overflow-hidden border border-border hover:border-accent hover-lift transition-all flex flex-col"
+              className="group relative w-full h-84 rounded-2xl overflow-hidden mb-4 shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1"
+
             >
-              <div className="relative h-56 overflow-hidden">
+              {/* Image */}
+              <div className="relative h-full w-full">
                 <Image
-                  src={product.mainImage ? `${baseUrl}${product.mainImage}` : '/images/no_image.png'}
-                  alt={`${product.translated.name} – ${lang === 'ar' ? 'الشعلة للرخام' : 'Alshoaala Marble'}`}
+                  src={
+                    product.mainImage
+                      ? `${baseUrl}${product.mainImage}`
+                      : '/images/no_image.png'
+                  }
+                  alt={product.translated.name}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-contain group-hover:scale-105 transition-transform duration-500"
                 />
-                <button className="absolute top-3 right-3 p-2 bg-white/90 hover:bg-white rounded-full transition-shadow shadow-lg">
-                  <Heart className="w-5 h-5 text-gray-600" />
-                </button>
               </div>
 
-              <div className="p-6 flex-1 flex flex-col">
-                <h3 className="font-semibold text-lg mb-2 group-hover:text-accent transition-colors">
-                  {product.translated.name}
-                </h3>
+              {/* Overlay  */}
+              <div
+                className="
+        absolute bottom-0 left-0 right-0
+        min-h-[35%]
+        bg-black/40 backdrop-blur-sm
+        p-4
+        flex flex-col justify-between
+      "
+              >
+                <div>
+                  <h3 className="text-lg md:text-xl font-semibold text-white group-hover:text-accent transition-colors">
+                    {product.translated.name}
+                  </h3>
 
-                <p className="text-sm text-muted-foreground mb-3 flex-1">
-                  {product.translated.description}
-                </p>
+                  <p className="text-sm text-white/80 mt-1 line-clamp-2">
+                    {product.translated.description}
+                  </p>
+                </div>
 
+                {/* Link */}
                 <Link
                   href={`/${lang}/products/${product.id}`}
-                  className="w-full px-4 py-2 bg-primary text-primary-foreground rounded font-medium hover:bg-primary/90 transition-colors text-sm text-center"
+                  className="
+          mt-3 inline-flex items-center justify-center
+          px-4 py-2
+          bg-accent text-accent-foreground
+          rounded-lg
+          text-sm font-medium
+          hover:scale-[0.98]
+          transition-transform
+        "
                 >
                   {message('products.viewdetails', 'View Details')}
                 </Link>
               </div>
             </div>
           ))}
+
+        </div>
+
+        {/* Show More */}
+        <div className={`flex justify-center`}>
+          <Link
+            href={`/${lang}/products`}
+            className="inline-block px-10 py-3 bg-primary text-primary-foreground font-semibold rounded-2xl shadow-lg hover:scale-105 hover:-translate-y-1 transition-transform duration-300 text-md md:text-lg"
+
+          >
+            {message('showmore', 'Show More')}
+          </Link>
         </div>
       </div>
     </section>

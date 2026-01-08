@@ -74,7 +74,7 @@ const ContactPage = ({ contactInfo, lang }: ContactPageProps) => {
                 <Phone className="w-8 h-8 text-accent" />
               </div>
               <h3 className="font-bold text-lg mb-2">{message('contact.phone', 'Phone')}</h3>
-              <p className="text-muted-foreground">{contactInfo.phone}</p>
+              <p className="text-muted-foreground" dir="ltr">{contactInfo.phone}</p>
             </div>
 
             <div className="text-center">

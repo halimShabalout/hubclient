@@ -1,7 +1,6 @@
 'use client'
 
 import { useLanguage } from '@/components/language-provider'
-import { useIntersectionObserver } from '@/hooks/use-intersection-observer'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Product } from '@/lib/types/Product'
@@ -14,36 +13,27 @@ interface ProductsSectionProps {
 const ProductsSection = ({ products, lang }: ProductsSectionProps) => {
   const { direction, message } = useLanguage()
   const baseUrl = process.env.NEXT_PUBLIC_API_URL
-  const { ref, isVisible } = useIntersectionObserver()
 
   if (!products || products.length === 0) {
     return null
   }
 
-  const featuredProducts = products.slice(0, 6)
-
   return (
     <section
-      ref={ref}
-      className="py-20"
+      className="py-20 bg-secondary/50"
       dir={direction}
     >
       <div className="container mx-auto px-4">
         {/* Title */}
         <h2
-          className={`text-4xl md:text-5xl font-bold mb-4 ${
-            direction === 'rtl' ? 'text-right' : 'text-center'
-          } ${isVisible ? 'fade-in' : 'opacity-0'}`}
+          className={"text-4xl md:text-5xl font-bold mb-4 text-center"}
         >
           {message('products.title', 'Featured Products')}
         </h2>
 
         {/* Subtitle */}
         <p
-          className={`text-muted-foreground mb-12 max-w-2xl mx-auto ${
-            direction === 'rtl' ? 'text-right' : 'text-center'
-          } ${isVisible ? 'fade-in' : 'opacity-0'}`}
-          style={{ animationDelay: '0.1s' }}
+          className={"text-muted-foreground mb-12 max-w-2xl mx-auto text-center"}
         >
           {message(
             'products.subtitle',
@@ -52,21 +42,16 @@ const ProductsSection = ({ products, lang }: ProductsSectionProps) => {
         </p>
 
         {/* Products Grid */}
-        <div
-          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-10 ${
-            direction === 'rtl' ? 'text-right' : 'text-left'
-          }`}
-        >
-          {featuredProducts.map((product, idx) => (
-            <Link
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 ${direction === 'rtl' ? 'text-right' : 'text-left'}`}>
+
+          {products.map((product, idx) => (
+            <div
               key={product.id}
-              href={`/${lang}/products/${product.id}`}
-              className={`bg-card rounded-xl overflow-hidden border border-border hover:border-accent hover-lift group ${
-                isVisible ? 'scale-in' : 'opacity-0'
-              }`}
-              style={{ animationDelay: `${idx * 0.05}s` }}
+              className="group relative w-full h-84 rounded-2xl overflow-hidden mb-4 shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1"
+
             >
-              <div className="relative h-48 overflow-hidden">
+              {/* Image */}
+              <div className="relative h-full w-full">
                 <Image
                   src={
                     product.mainImage
@@ -75,50 +60,65 @@ const ProductsSection = ({ products, lang }: ProductsSectionProps) => {
                   }
                   alt={product.translated.name}
                   fill
-                  sizes="(max-width: 768px) 100vw, 20vw"
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-contain group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
 
-              <div className="p-4 flex flex-col h-full">
-                <h3 className="font-semibold text-lg mb-2 group-hover:text-accent transition-colors">
-                  {product.translated.name}
-                </h3>
+              {/* Overlay  */}
+              <div
+                className="
+        absolute bottom-0 left-0 right-0
+        min-h-[35%]
+        bg-black/40 backdrop-blur-sm
+        p-4
+        flex flex-col justify-between
+      "
+              >
+                <div>
+                  <h3 className="text-lg md:text-xl font-semibold text-white group-hover:text-accent transition-colors">
+                    {product.translated.name}
+                  </h3>
 
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                  {product.translated.description}
-                </p>
+                  <p className="text-sm text-white/80 mt-1 line-clamp-2">
+                    {product.translated.description}
+                  </p>
+                </div>
 
-                <span
-                  className={`mt-auto inline-flex items-center justify-center px-4 py-2 bg-primary text-primary-foreground rounded font-medium text-sm hover:bg-primary/90 transition-colors ${
-                    direction === 'rtl' ? 'self-start' : 'self-end'
-                  }`}
+                {/* Link */}
+                <Link
+                  href={`/${lang}/products/${product.id}`}
+                  className="
+          mt-3 inline-flex items-center justify-center
+          px-4 py-2
+          bg-accent text-accent-foreground
+          rounded-lg
+          text-sm font-medium
+          hover:scale-[0.98]
+          transition-transform
+        "
                 >
                   {message('products.viewdetails', 'View Details')}
-                </span>
+                </Link>
               </div>
-            </Link>
+            </div>
           ))}
+
         </div>
 
         {/* Show More */}
-        <div
-          className={`${
-            direction === 'rtl' ? 'text-right' : 'text-center'
-          }`}
-        >
+        <div className={`flex justify-center`}>
           <Link
             href={`/${lang}/products`}
-            className={`inline-block px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover-lift ${
-              isVisible ? 'slide-in-up' : 'opacity-0'
-            }`}
-            style={{ animationDelay: '0.3s' }}
+            className="inline-block px-10 py-3 bg-primary text-primary-foreground font-semibold rounded-2xl shadow-lg hover:scale-105 hover:-translate-y-1 transition-transform duration-300 text-md md:text-lg"
+
           >
             {message('showmore', 'Show More')}
           </Link>
         </div>
       </div>
     </section>
+
   )
 }
 

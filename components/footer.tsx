@@ -58,9 +58,8 @@ export default function Footer({
       <div className="container mx-auto px-4 py-12">
         {/* Main Grid */}
         <div
-          className={`grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 ${
-            direction === 'rtl' ? 'text-right' : 'text-left'
-          }`}
+          className={`grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 ${direction === 'rtl' ? 'text-right' : 'text-left'
+            }`}
         >
           {/* Company Info */}
           <div>
@@ -97,11 +96,10 @@ export default function Footer({
               {message('footer.contact', 'Contact')}
             </h4>
             <ul
-              className={`space-y-2 text-sm opacity-80 ${
-                direction === 'rtl' ? 'text-right' : 'text-left'
-              }`}
+              className={`space-y-2 text-sm opacity-80 ${direction === 'rtl' ? 'text-right' : 'text-left'
+                }`}
             >
-              {contactInfo?.phone && <li>{contactInfo.phone}</li>}
+              {contactInfo?.phone && <li dir="ltr">{contactInfo.phone}</li>}
               {contactInfo?.email && <li>{contactInfo.email}</li>}
               {contactInfo?.translated?.address && (
                 <li>{contactInfo.translated.address}</li>
@@ -115,11 +113,10 @@ export default function Footer({
               {message('footer.followUs', 'Follow Us')}
             </h4>
             <div
-              className={`flex gap-4 ${
-                direction === 'rtl'
+              className={`flex gap-4 ${direction === 'rtl'
                   ? 'justify-end flex-row-reverse'
                   : 'justify-start'
-              }`}
+                }`}
             >
               {socialLinks?.map((item, idx) => {
                 const Icon = SOCIAL_ICONS[item.icon as SocialIconName]
@@ -142,9 +139,7 @@ export default function Footer({
 
         {/* Footer Bottom */}
         <div
-          className={`border-t border-primary-foreground/20 pt-8 text-sm opacity-80 ${
-            direction === 'rtl' ? 'text-right' : 'text-center'
-          }`}
+          className={"border-t border-primary-foreground/20 pt-8 text-sm opacity-80 text-center"}
         >
           © {new Date().getFullYear()}{' '}
           {message('footer.company', 'Alshoaala Marble')}.{' '}

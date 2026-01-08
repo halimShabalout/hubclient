@@ -43,9 +43,8 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === currentSlide ? 'opacity-100 z-20' : 'opacity-0 z-10'
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 z-20' : 'opacity-0 z-10'
+              }`}
           >
             <Image
               src={
@@ -57,62 +56,64 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
               fill
               priority={index === 0}
               sizes="100vw"
-              className="object-cover"
+              className="object-contain object-center"
             />
           </div>
         ))}
       </div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent z-20" />
+      <div className="absolute inset-0 bg-black/10 z-20" />
 
       {/* Content */}
       <div
         className="relative z-30 flex flex-col items-center justify-center h-full text-center px-4"
         style={{ direction }}
       >
-        <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-          {message('hero.topText', 'Premium Natural Marble Collections')}
-        </h1>
+        <div className="bg-black/30 p-6 rounded-lg">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            {message('hero.topText', 'Elevate Your Space with Premium Marble')}
+          </h1>
 
-        <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-          {slides[currentSlide].translated.title}
-        </h2>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+            {slides[currentSlide].translated.title}
+          </h2>
 
-        <p className="text-lg md:text-2xl text-white/90 mb-8 max-w-3xl">
-          {slides[currentSlide].translated.subTitle}
-        </p>
+          <p className="text-lg md:text-2xl text-white/90 mb-8 max-w-3xl">
+            {slides[currentSlide].translated.subTitle}
+          </p>
 
-        {slides[currentSlide].translated.ctaText && (
-          <Link
-            href={slides[currentSlide].ctaLink || `/${lang}/products`}
-            className="px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-lg hover:opacity-90 transition"
-          >
-            {slides[currentSlide].translated.ctaText}
-          </Link>
-        )}
+          {slides[currentSlide].translated.ctaText && (
+            <Link
+              href={slides[currentSlide].ctaLink || `/${lang}/products`}
+              className="px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-lg hover:opacity-90 transition"
+            >
+              {slides[currentSlide].translated.ctaText}
+            </Link>
+          )}
+        </div>
       </div>
 
       {/* Navigation */}
       {slides.length > 1 && (
         <>
+          {/* Previous */}
           <button
             onClick={() =>
-              setCurrentSlide(
-                (prev) => (prev - 1 + slides.length) % slides.length
-              )
+              setCurrentSlide((prev) => (prev + 1) % slides.length)
             }
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/20 hover:bg-white/40 text-white hidden md:block"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 hover:bg-black/70 text-white hidden md:block shadow-lg"
             aria-label="Previous Slide"
           >
             ‹
           </button>
 
+          {/* Next */}
           <button
             onClick={() =>
-              setCurrentSlide((prev) => (prev + 1) % slides.length)
+              setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
             }
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/20 hover:bg-white/40 text-white hidden md:block"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 hover:bg-black/70 text-white hidden md:block shadow-lg"
             aria-label="Next Slide"
           >
             ›
@@ -120,17 +121,17 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
         </>
       )}
 
+
       {/* Indicators */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide
-                ? 'bg-accent w-8'
-                : 'bg-white/50 w-3 hover:bg-white/70'
-            }`}
+            className={`h-3 rounded-full transition-all duration-300 ${index === currentSlide
+              ? 'bg-accent w-8'
+              : 'bg-white/50 w-3 hover:bg-white/70'
+              }`}
             aria-label={`Slide ${index + 1}`}
           />
         ))}

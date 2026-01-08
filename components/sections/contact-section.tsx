@@ -61,15 +61,6 @@ const ContactSection = ({ contactInfo, lang }: ContactSectionProps) => {
           )}
         </p>
 
-        {submitted && (
-          <div
-            className="mb-6 p-4 bg-green-100 text-green-800 rounded-lg text-center font-semibold fade-in"
-            role="alert"
-          >
-            {message('contact.form.success', 'Message sent successfully!')}
-          </div>
-        )}
-
         {/* Form */}
         <div className="flex flex-col">
           <h2
@@ -159,38 +150,37 @@ const ContactSection = ({ contactInfo, lang }: ContactSectionProps) => {
               {message('contact.direct', 'Or contact us directly:')}
             </p>
 
-            <div
-              className={`flex flex-wrap justify-center gap-8 ${isRTL ? 'text-right' : 'text-left'
-                }`}
-            >
+            <div className={`flex flex-wrap justify-center gap-8`}>
+
               <div>
-                <p className="font-semibold">
-                  {message('contact.phone', 'Phone')}
+                <p className="font-semibold">{message('contact.phone', 'Phone')}</p>
+                <p className="text-muted-foreground" dir="ltr">
+                  {contactInfo.phone}
                 </p>
-                <p className="text-muted-foreground">{contactInfo.phone}</p>
               </div>
 
               <div>
-                <p className="font-semibold">
-                  {message('contact.email', 'Email')}
+                <p className="font-semibold">{message('contact.email', 'Email')}</p>
+                <p className="text-muted-foreground" dir="ltr">
+                  {contactInfo.email}
                 </p>
-                <p className="text-muted-foreground">{contactInfo.email}</p>
               </div>
 
               <div>
-                <p className="font-semibold">
-                  {message('contact.whatsapp', 'WhatsApp')}
-                </p>
+                <p className="font-semibold">{message('contact.whatsapp', 'WhatsApp')}</p>
                 <a
                   href={`https://wa.me/${contactInfo.whatsapp}`}
                   className="text-accent hover:underline"
+                  dir="ltr"
                 >
                   {contactInfo.whatsapp}
                 </a>
               </div>
+
             </div>
           </div>
         )}
+
       </div>
     </section>
   )
