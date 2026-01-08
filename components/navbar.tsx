@@ -2,111 +2,122 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { useLanguage } from '@/components/language-provider'
-import { useTheme } from '@/components/theme-provider'
 import { Menu, X, Sun, Moon, Globe } from 'lucide-react'
+import { useTheme } from '@/components/theme-provider'
+import { useLanguage } from '@/components/language-provider'
 
-const Navbar = () => {
-  const { language, setLanguage, direction, message } = useLanguage()
+const navLinks = [
+  { key: 'home', href: '/' },
+  { key: 'categories', href: '/categories' },
+  { key: 'products', href: '/products' },
+  { key: 'aboutus', href: '/aboutus' },
+  { key: 'contact', href: '/contact' },
+]
+
+export default function Navbar() {
+  const { language, direction, message, toggleLanguage } = useLanguage()
   const { theme, toggleTheme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const navLinks = [
-    { key: 'home', href: '/' },
-    { key: 'categories', href: '/categories' },
-    { key: 'products', href: '/products' },
-    { key: 'aboutus', href: '/aboutus' },
-    { key: 'contact', href: '/contact' },
-  ]
+  const Logo = ({ width = 'w-42', height = 'h-12' }) => (
+    <Link href={`/${language}`}>
+      <img
+        src={
+          theme === 'dark'
+            ? language === 'en'
+              ? '/light-mode-en.png'
+              : '/light-mode-ar.png'
+            : language === 'en'
+              ? '/dark-mode-en.png'
+              : '/dark-mode-ar.png'
+        }
+        alt="Logo"
+        className={`${width} ${height} object-contain`}
+      />
+    </Link>
+  )
 
-  const navigationItems = navLinks.map(link => ({
-    ...link,
-    label: message(link.key)
-  }))
+  const ThemeLanguageButtons = () => (
+    <div className="flex items-center gap-2 md:gap-4">
+      <button onClick={toggleTheme} className="p-2 hover:bg-secondary rounded-lg">
+        {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+      </button>
+      <button
+        onClick={toggleLanguage}
+        className="p-2 hover:bg-secondary rounded-lg inline-flex items-center gap-1 text-sm font-bold md:text-sm"
+      >
+        <Globe className="w-4 h-4 md:w-5 md:h-5" />
+        <span>{language === 'en' ? (direction === 'rtl' ? 'العربية' : 'AR') : (direction === 'rtl' ? 'English' : 'EN')}</span>
+      </button>
+    </div>
+  )
+
+ 
+  const NavLinks = ({ isMobile = false, closeMobileMenu }: { isMobile?: boolean; closeMobileMenu?: () => void }) => (
+    <div
+      className={isMobile ? 'space-y-3' : 'hidden md:flex items-center gap-8'}
+      dir={isMobile ? undefined : language === 'ar' ? 'rtl' : 'ltr'}
+    >
+      {navLinks.map(link => (
+        <Link
+          key={link.key}
+          href={`/${language}/${link.href}`}
+          onClick={closeMobileMenu}
+          className={`
+            ${isMobile ? `block px-4 py-3 text-base font-medium rounded-lg hover:bg-secondary ${direction === 'rtl' ? 'text-right' : 'text-left'}` : 'relative text-sm font-medium text-foreground group'}
+          `}
+        >
+          {message(link.key)}
+          {!isMobile && <span className="absolute bottom-0 start-0 h-0.5 w-0 bg-accent transition-all group-hover:w-full" />}
+        </Link>
+      ))}
+    </div>
+  )
 
   return (
-    <nav
-      aria-label="Main Navigation"
-      className={`sticky top-0 z-50 w-full border-b border-border bg-background backdrop-blur ${direction === 'rtl' ? 'rtl' : ''}`}
-    >
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 flex-shrink-0 group" title="Alshoaala Marble Home">
-          <img
-            src={
-              theme === 'dark'
-                ? language === 'en'
-                  ? '/light-mode-en.png'
-                  : '/light-mode-ar.png'
-                : language === 'en'
-                  ? '/dark-mode-en.png'
-                  : '/dark-mode-ar.png'
-            }
-            alt="Alshoaala Marble Logo"
-            className="w-40 h-12 sm:w-48 sm:h-12 md:w-56 md:h-12 object-contain group-hover:scale-110 smooth-transition"
-          />
-        </Link>
-
-        <div className="hidden md:flex items-center gap-8">
-          {navigationItems.map(item => (
-            <Link
-              key={item.key}
-              href={item.href}
-              title={item.label}
-              className="text-sm font-medium text-foreground smooth-transition relative group focus:outline-none focus:ring-2 focus:ring-accent rounded"
+    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background backdrop-blur">
+      <div className="container mx-auto px-4 py-4">
+        {/* Small screen */}
+        <div className="md:hidden flex items-center justify-between w-full relative">
+          {/* List Menu*/}
+          <div className="flex-1 flex justify-start">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 hover:bg-secondary rounded-lg"
             >
-              {item.label}
-              <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-accent group-hover:w-full smooth-transition" />
-            </Link>
-          ))}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Logo in center*/}
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <Logo />
+          </div>
+
+          {/* Thema and language buttons*/}
+          <ThemeLanguageButtons />
         </div>
 
-        <div className="flex items-center gap-2 md:gap-4">
-          <button
-            onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
-            aria-label="Switch Language"
-            className="p-2 hover:bg-secondary rounded-lg smooth-transition inline-flex items-center gap-1 text-sm font-medium"
-          >
-            <Globe className="w-4 h-4" />
-            <span className="hidden sm:inline">{language === 'en' ? 'EN' : 'العربية'}</span>
-          </button>
+        {/* Large screen */}
+        <div className={`hidden md:flex items-center justify-between ${direction === 'rtl' ? 'flex-row' : 'flex-row-reverse'}`}>
+          <div className="flex-shrink-0">
+            <Logo width="w-48" height="h-12" />
+          </div>
 
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle Theme"
-            className="p-2 hover:bg-secondary rounded-lg smooth-transition"
-          >
-            {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          </button>
+          <NavLinks />
 
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle Mobile Menu"
-            className="md:hidden p-2 hover:bg-secondary rounded-lg smooth-transition"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <ThemeLanguageButtons />
         </div>
       </div>
 
+      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-border bg-background">
-          <div className="container mx-auto px-4 py-4 space-y-3">
-            {navigationItems.map(item => (
-              <Link
-                key={item.key}
-                href={item.href}
-                title={item.label}
-                className="block px-4 py-2 text-sm font-medium text-foreground hover:text-primary hover:bg-secondary rounded-lg smooth-transition focus:outline-none focus:ring-2 focus:ring-accent"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="container mx-auto px-4 py-4">
+            <NavLinks isMobile closeMobileMenu={() => setMobileMenuOpen(false)} />
           </div>
         </div>
       )}
     </nav>
   )
 }
-
-export default Navbar

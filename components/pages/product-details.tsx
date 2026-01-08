@@ -3,58 +3,31 @@
 import { useLanguage } from '@/components/language-provider'
 import { useState } from 'react'
 import Link from 'next/link'
-import { useProductById } from '@/lib/hooks/useProducts'
+import { Product } from '@/lib/types/Product'
 
 interface ProductDetailsProps {
-  productId: number
+  product: Product
+  lang: 'en' | 'ar'
 }
 
-const ProductDetails = ({ productId }: ProductDetailsProps) => {
-  const { language, direction, message } = useLanguage()
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-
-  const { data, isLoading, isError } = useProductById(productId, language)
-  const product = data?.data
+const ProductDetails = ({ product, lang }: ProductDetailsProps) => {
+  const { message } = useLanguage()
+  const direction: 'ltr' | 'rtl' = lang === 'ar' ? 'rtl' : 'ltr'
   const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-20 text-center">
-        <p>{message('loading', 'Loading...')}</p>
-      </div>
-    )
-  }
-
-  if (isError || !product) {
-    return (
-      <div className="container mx-auto px-4 py-20 text-center">
-        <h1 className="text-2xl font-bold">
-          {message('loading.error', 'Failed to load data.')}
-        </h1>
-      </div>
-    )
-  }
-
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const images = product.images || []
   const translated = product.translated || {}
   const name = translated.name
   const description = translated.description
-  const images = product.images || []
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length)
-  }
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
-  }
+  const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length)
+  const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
 
   return (
-    <section className={`py-12 ${direction === 'rtl' ? 'rtl' : ''}`}>
+    <section className="py-12" dir={direction}>
       <div className="container mx-auto px-4">
-        <Link
-          href="/products"
-          className="text-primary hover:text-accent mb-8 inline-flex items-center gap-2"
-        >
+        <Link href={`/${lang}/products`} className="text-primary hover:text-accent mb-8 inline-flex items-center gap-2">
           <span>←</span>
           <span>{message('product.back', 'Back to Products')}</span>
         </Link>
@@ -125,8 +98,10 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
             </div>
           </div>
         </div>
+
       </div>
     </section>
   )
 }
+
 export default ProductDetails

@@ -1,70 +1,62 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useMemo, useState } from 'react'
 import translationsData from '../lib/mock/translations.json'
+import { usePathname, useRouter } from 'next/navigation'
 
-const translations = translationsData.data as Record<string, Record<string, string>>
-type Language = "en" | "ar";
+type Language = 'en' | 'ar'
+type Messages = Record<string, string>
 
 interface LanguageContextType {
   language: Language
-  setLanguage: (lang: Language) => void
+  toggleLanguage: () => void
   direction: 'ltr' | 'rtl'
-  message: (key: string, defaultValue?: string) => string
+  message: (key: string) => string
 }
 
 const LanguageContext = createContext<LanguageContextType | null>(null)
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en')
-  const [mounted, setMounted] = useState(false)
+const RTL_LANGS: Language[] = ['ar']
 
-  useEffect(() => {
-    setMounted(true)
-    const stored = localStorage.getItem('language') as Language | null
-    const initial = stored || 'en'
-    setLanguageState(initial)
-    updateLanguage(initial)
-  }, [])
+export function LanguageProvider({
+  children,
+  userLang = 'ar',
+}: {
+  children: React.ReactNode
+  userLang: Language
+}) {
+  const [language] = useState<Language>(userLang)
+  const router = useRouter()
+  const pathname = usePathname()
 
-  const updateLanguage = (lang: Language) => {
-    const html = document.documentElement
-    html.lang = lang
-    html.dir = lang === 'ar' ? 'rtl' : 'ltr'
+  const toggleLanguage = () => {
+    const newLang = language === 'en' ? 'ar' : 'en'
+    const segments = pathname.split('/')
+    segments[1] = newLang
+    router.push(segments.join('/'))
   }
 
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang)
-    updateLanguage(lang)
-    localStorage.setItem('language', lang)
-  }
+  const messages: Messages = useMemo(
+    () => translationsData.data[language] ?? {},
+    [language]
+  )
 
-  const message = (key: string, defaultValue?: string): string => {
-    const langPack = translations[language] as Record<string, string>
-    const enPack = translations['en'] as Record<string, string>
+  const message = (key: string) => messages[key] ?? key
 
-    if (key in langPack) return langPack[key]
-    if (key in enPack) return enPack[key]
-    if (defaultValue) return defaultValue
-
-    return key
-  }
-
-  if (!mounted) return null
-
-  const direction = language === 'ar' ? 'rtl' : 'ltr'
+  const direction: 'ltr' | 'rtl' =
+    RTL_LANGS.includes(language) ? 'rtl' : 'ltr'
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, direction, message }}>
+    <LanguageContext.Provider
+      value={{ language, toggleLanguage, direction, message }}
+    >
       {children}
     </LanguageContext.Provider>
   )
 }
 
 export function useLanguage() {
-  const context = useContext(LanguageContext)
-  if (!context) {
-    throw new Error('useLanguage must be used within LanguageProvider')
-  }
-  return context
+  const ctx = useContext(LanguageContext)
+  if (!ctx) throw new Error('useLanguage must be used within LanguageProvider')
+  return ctx
 }

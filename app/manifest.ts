@@ -1,0 +1,39 @@
+import { MetadataRoute } from 'next'
+
+export const dynamic = 'force-static'
+
+export default function manifest(): MetadataRoute.Manifest {
+  const lang = 'ar' 
+  const isRTL = lang === 'ar'
+
+  return {
+    name: isRTL ? 'الشعلة للرخام' : 'Alshoaala Marble',
+    short_name: isRTL ? 'الشعلة' : 'Alshoaala',
+    description: isRTL
+      ? 'اكتشف الرخام والحجر الطبيعي المتميز من الشعلة للرخام في جدة – مطابخ، أحواض، طاولات، بورسلين، جرانيت.'
+      : 'Discover premium natural marble and stone from Alshoaala Marble in Jeddah – kitchens, sinks, tables, porcelain, granite.',
+    start_url: '/',
+    display: 'standalone',
+    background_color: '#ffffff',
+    theme_color: '#0f172a',
+    icons: [
+      {
+        src: '/favicon.ico',
+        sizes: 'any',
+        type: 'image/x-icon',
+      },
+      {
+        src: '/logo.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        src: '/main-logo.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
+    ],
+    categories: ['business', 'marble', 'construction'],
+    lang: lang,
+  }
+}
