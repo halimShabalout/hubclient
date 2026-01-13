@@ -21,17 +21,17 @@ export async function generateMetadata({
 
   if (lang === 'ar') {
     return {
-      title: "رخام جدة | رخام الشعلة الراقية",
+      title: "رخام جدة | الشعلة الراقية للرخام والجرانيت والبورسلان",
       description:
-        "تعرف على الرخام الطبيعي عالي الجودة من الشعلة للرخام في جدة – مطابخ، مغاسل، طاولات، بورسلان وجرانيت.",
+        "الشعلة الراقية في جدة متخصصة في توريد وتصنيع الرخام الطبيعي والجرانيت والبورسلان. مطابخ رخام، مغاسل فاخرة، طاولات، وأعمال حجرية بجودة عالية وأسعار تنافسية.",
       alternates: { canonical: "/ar" },
     }
   }
 
   return {
-    title: "Alshoaala Marble | Premium Marble in Jeddah",
+    title: "Jeddah Marble | Elegant Torch for Marble, Granite & Porcelain",
     description:
-      "Discover premium natural marble and stone from Alshoaala Marble in Jeddah – kitchens, sinks, tables, porcelain, granite.",
+      "Elegant Torch in Jeddah specializes in premium marble, granite, and porcelain supply and fabrication. Custom kitchens, sinks, tables, and high-quality stone solutions.",
     alternates: { canonical: "/en" },
   }
 }

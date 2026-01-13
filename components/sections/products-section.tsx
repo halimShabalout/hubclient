@@ -47,78 +47,69 @@ const ProductsSection = ({ products, lang }: ProductsSectionProps) => {
           {products.map((product, idx) => (
             <div
               key={product.id}
-              className="group relative w-full h-84 rounded-2xl overflow-hidden mb-4 shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1"
-
+              className="group relative w-full rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
             >
               {/* Image */}
-              <div className="relative h-full w-full">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-50">
                 <Image
-                  src={
-                    product.mainImage
-                      ? `${baseUrl}${product.mainImage}`
-                      : '/images/no_image.png'
-                  }
+                  src={product.mainImage ? `${baseUrl}${product.mainImage}` : '/images/no_image.png'}
                   alt={product.translated.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-contain group-hover:scale-105 transition-transform duration-500"
+                  className="object-contain group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
 
-              {/* Overlay  */}
-              <div
-                className="
-        absolute bottom-0 left-0 right-0
-        min-h-[35%]
-        bg-black/40 backdrop-blur-sm
-        p-4
-        flex flex-col justify-between
-      "
-              >
-                <div>
-                  <h3 className="text-lg md:text-xl font-semibold text-white group-hover:text-accent transition-colors">
+              {/* Content */}
+              <div className="p-4 flex flex-col h-[200px] md:h-[220px]">
+                {/* Name & Description */}
+                <div className="flex-1 flex flex-col items-center justify-start">
+                  <h3 className="text-lg md:text-xl font-semibold text-foreground/90 mb-2 text-center">
                     {product.translated.name}
                   </h3>
 
-                  <p className="text-sm text-white/80 mt-1 line-clamp-2">
-                    {product.translated.description}
-                  </p>
+                  {product.translated.description && (
+                    <p className="text-sm text-foreground/80 line-clamp-2 text-center">
+                      {product.translated.description}
+                    </p>
+                  )}
                 </div>
 
-                {/* Link */}
-                <Link
-                  href={`/${lang}/products/${product.id}`}
-                  className="
-          mt-3 inline-flex items-center justify-center
-          px-4 py-2
-          bg-accent text-accent-foreground
-          rounded-lg
-          text-sm font-medium
-          hover:scale-[0.98]
-          transition-transform
-        "
-                >
-                  {message('products.viewdetails', 'View Details')}
-                </Link>
+                {/* Button fixed at bottom */}
+                <div className="mt-4 flex justify-center">
+                  <Link
+                    href={`/${lang}/products/${product.id}`}
+                    className="px-6 py-2 bg-accent text-accent-foreground font-semibold rounded-md shadow-lg 
+                   hover:bg-accent/90 hover:scale-105 transition-all duration-300 text-sm md:text-base text-center"
+                  >
+                    {message('products.viewdetails', 'View Details')}
+                  </Link>
+                </div>
               </div>
             </div>
+
+
           ))}
 
         </div>
 
         {/* Show More */}
-        <div className={`flex justify-center`}>
+        <div className="flex justify-center mt-8">
           <Link
             href={`/${lang}/products`}
-            className="inline-block px-10 py-3 bg-primary text-primary-foreground font-semibold rounded-2xl shadow-lg hover:scale-105 hover:-translate-y-1 transition-transform duration-300 text-md md:text-lg"
-
+            className="
+      px-6 py-2 
+      bg-primary text-primary-foreground 
+      font-semibold rounded-md shadow-lg 
+      hover:bg-primary/90 hover:scale-105 transition-all duration-300
+      text-sm md:text-base text-center
+    "
           >
             {message('showmore', 'Show More')}
           </Link>
         </div>
       </div>
     </section>
-
   )
 }
 

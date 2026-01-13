@@ -19,7 +19,7 @@ export async function generateMetadata({
 
   if (lang === 'ar') {
     return {
-      title: 'منتجات الرخام | الشعلة للرخام',
+      title: 'منتجات الرخام | الشعلة الراقية للرخام',
       description:
         'تصفح مجموعة واسعة من منتجات الرخام والأحجار الطبيعية عالية الجودة من مؤسسة الشعلة للرخام.',
       alternates: { canonical: '/ar/products' },
@@ -27,9 +27,9 @@ export async function generateMetadata({
   }
 
   return {
-    title: 'Marble Products | Alshoaala Marble',
+    title: 'Marble Products | Elegant Torch',
     description:
-      'Browse our wide range of high-quality marble and natural stone products at Alshoaala Marble.',
+      'Browse our wide range of high-quality marble and natural stone products at Elegant Torch.',
     alternates: { canonical: '/en/products' },
   }
 }

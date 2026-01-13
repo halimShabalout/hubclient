@@ -2,7 +2,6 @@
 
 import { useLanguage } from '@/components/language-provider'
 import Link from 'next/link'
-import Image from 'next/image'
 import { AboutUs } from '@/lib/types/AboutUs'
 
 interface AboutUsSectionProps {
@@ -23,26 +22,14 @@ const AboutUsSection = ({ aboutUs, lang }: AboutUsSectionProps) => {
       dir={direction}
     >
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center ">
 
           {/* Image */}
-          <div
-            className={`relative h-96 rounded-xl overflow-hidden hover-lift ${direction === 'rtl'
-              ? 'md:order-2'
-              : 'md:order-2'
-              }`}
-          >
-            <Image
-              src={
-                aboutUs.imageUrl
-                  ? `${baseUrl}${aboutUs.imageUrl}`
-                  : '/images/no_image.png'
-              }
-              alt={message('aboutus.image.alt', 'About Alshoaala Marble')}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-contain transition-transform duration-500 hover:scale-102"
-              priority
+          <div className={`relative h-96 rounded-2xl overflow-hidden hover-lift p-2 md:order-2`}>
+            <img
+              src={aboutUs.imageUrl ? `${baseUrl}${aboutUs.imageUrl}` : '/images/no_image.png'}
+              alt={message('aboutus.image.alt', 'About Elegant Torch')}
+              className="w-full h-80 md:h-full rounded-2xl object-cover shadow-lg border border-white/20 dark:border-black/20"
             />
           </div>
 

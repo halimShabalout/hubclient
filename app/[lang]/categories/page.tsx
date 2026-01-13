@@ -44,21 +44,21 @@ export async function generateMetadata(
   }
 
   return {
-    title: 'All Categories | Alshoaala Marble',
+    title: 'All Categories | Elegant Torch',
     description:
-      'Browse all marble, granite, and natural stone categories at Alshoaala Marble. High-quality materials for floors, walls, and countertops.',
+      'Browse all marble, granite, and natural stone categories at Elegant Torch. High-quality materials for floors, walls, and countertops.',
     openGraph: {
-      title: 'All Categories | Alshoaala Marble',
+      title: 'All Categories | Elegant Torch',
       description:
-        'Explore the full range of marble and natural stone categories at Alshoaala Marble.',
+        'Explore the full range of marble and natural stone categories at Elegant Torch.',
       url: '/en/categories',
-      siteName: 'Alshoaala Marble',
+      siteName: 'Elegant Torch',
       images: [
         {
           url: '/og/categories.jpg',
           width: 1200,
           height: 630,
-          alt: 'Marble Categories – Alshoaala Marble',
+          alt: 'Marble Categories – Elegant Torch',
         },
       ],
       type: 'website',

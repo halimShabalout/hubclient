@@ -5,17 +5,17 @@ import { fetchAllCategories } from "@/lib/services/categoriesService"
 export const dynamic = "force-dynamic"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = "https://alshoaala-marble.com"
+    const baseUrl = "https://jeddahmarble.com"
     const languages: Array<"en" | "ar"> = ["en", "ar"]
 
     // Static routes
     const staticRoutes = languages.flatMap((lang) =>
         [
-            "/",           // home
-            "/aboutus",    // about us
-            "/categories", // categories
-            "/contact",    // contact
-            "/products",   // products
+            "/",        
+            "/aboutus",  
+            "/categories",
+            "/contact",    
+            "/products", 
         ].map((route) => ({
             url: `${baseUrl}/${lang}${route === "/" ? "" : route}`,
             lastModified: new Date(),

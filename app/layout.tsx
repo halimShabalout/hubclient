@@ -10,8 +10,8 @@ const geist = Geist({ subsets: ['latin'] })
 const geistMono = Geist_Mono({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  applicationName: 'Alshoaala Marble',
-  metadataBase: new URL('https://alshoaala-marbel.com'),
+  applicationName: 'Elegant Torch',
+  metadataBase: new URL('https://jeddahmarbel.com'),
 }
 
 export default async function RootLayout({

@@ -1,7 +1,7 @@
 {
   "data": {
     "en": {
-      "compnay.name": "Alshoaala Marble",
+      "compnay.name": "Elegant Torch",
       "home": "Home",
       "categories": "Categories",
       "products": "Products",
@@ -28,6 +28,8 @@
       "product.viewall": "View All Products",
       "product.back": "Back to Products",
       "product.specs": "Specifications",
+      "want.product": "I want this product",
+      "request.quote": "Request a Quote",
       "aboutus.title": "About Us",
       "aboutus.readmore": "Read More",
       "about.hero.title": "About Our Company",
@@ -61,7 +63,7 @@
       "product.favorite": "Add to Favorites",
       "filter.byCategory": "Filter by Category",
       "filter.all": "All Products",
-      "footer.company": "Alshoaala Marble",
+      "footer.company": "Elegant Torch",
       "footer.description": "Premium marble and stone products for your home and business",
       "footer.quickLinks": "Quick Links",
       "footer.contact": "Contact",
@@ -97,6 +99,8 @@
       "products.viewall": "عرض جميع المنتجات",
       "product.back": "العودة للمنتجات",
       "product.specs": "المواصفات",
+      "want.product": " أريد هذا المنتج",
+      "request.quote": "طلب عرض سعر",
       "aboutus.title": "من نحن",
       "aboutus.readmore": "اقرأ المزيد",
       "about.hero.title": "حول شركتنا",

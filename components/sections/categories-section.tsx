@@ -41,71 +41,68 @@ const CategoriesSection = ({ categories, lang }: CategoriesSectionProps) => {
           {categories.map(category => (
             <div
               key={category.id}
-              className="group relative w-full h-84 rounded-2xl overflow-hidden mb-4 shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1"
+              className="group relative w-full rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
             >
-              <div className="relative h-full w-full overflow-hidden rounded-xl">
+              {/* Image */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-50">
                 <Image
-                  src={
-                    category.imageUrl
-                      ? `${baseUrl}${category.imageUrl}`
-                      : '/images/no_image.png'
-                  }
+                  src={category.imageUrl ? `${baseUrl}${category.imageUrl}` : '/images/no_image.png'}
                   alt={category.translated.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-contain group-hover:scale-105 transition-transform duration-500"
+                  className="object-contain group-hover:scale-105 transition-transform duration-700"
+
                 />
               </div>
 
-
-              {/* Overlay */}
-              <div className="
-              absolute bottom-0 left-0 right-0
-              min-h-[35%]
-              bg-black/40 backdrop-blur-sm
-              p-5
-              flex flex-col justify-between
-            ">
-                <div>
-                  <h3 className="text-xl md:text-2xl font-semibold text-white group-hover:text-accent transition-colors">
+              {/* Content Wrapper */}
+              <div className="p-4 flex flex-col h-[200px] md:h-[220px]">
+                {/* Name & Description */}
+                <div className="flex-1 flex flex-col items-center justify-start">
+                  <h3 className="text-lg md:text-xl font-semibold text-foreground/90 mb-2 text-center">
                     {category.translated.name}
                   </h3>
 
                   {category.translated.description && (
-                    <p className="text-sm md:text-base text-white/80 mt-1 line-clamp-2">
+                    <p className="text-sm text-foreground/80 line-clamp-2 text-center">
                       {category.translated.description}
                     </p>
                   )}
                 </div>
 
-                <Link
-                  href={`/${lang}/products?category=${category.id}`}
-                  className="inline-block w-full text-center px-6 py-2 bg-accent text-accent-foreground font-semibold rounded-md shadow hover:scale-95 transition-transform duration-300 text-sm md:text-base"
-                >
-                  {message('showmore', 'Show More')}
-                </Link>
+                <div className="mt-4 flex justify-center">
+                  <Link
+                    href={`/${lang}/products?category=${category.id}`}
+                    className="px-6 py-2 bg-accent text-accent-foreground font-semibold rounded-md shadow-lg 
+                   hover:bg-accent/90 hover:scale-105 transition-all duration-300 text-sm md:text-base text-center"
+                  >
+                    {message('categories.viewproducts', 'View Products')}
+                  </Link>
+                </div>
               </div>
-
             </div>
+
           ))}
         </div>
 
         {/* Show More Button */}
-        <div className={`flex justify-center`}>
+        <div className="flex justify-center mt-8">
           <Link
             href={`/${lang}/categories`}
-            className="inline-block px-10 py-3 bg-primary text-primary-foreground font-semibold rounded-2xl shadow-lg hover:scale-105 hover:-translate-y-1 transition-transform duration-300 text-md md:text-lg"
+            className="
+      px-6 py-2 
+      bg-primary text-primary-foreground 
+      font-semibold rounded-md shadow-lg 
+      hover:bg-primary/90 hover:scale-105 transition-all duration-300
+      text-sm md:text-base text-center
+    "
           >
             {message('showmore', 'Show More')}
           </Link>
         </div>
+
       </div>
     </section>
-
-
-
-
-
   )
 }
 

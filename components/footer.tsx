@@ -64,7 +64,7 @@ export default function Footer({
           {/* Company Info */}
           <div>
             <h3 className="font-bold text-lg mb-4">
-              {message('footer.company', 'Alshoaala Marble')}
+              {message('footer.company', 'Elegant Torch')}
             </h3>
             <p className="text-sm opacity-90">
               {message('footer.description', 'Premium marble company in Jeddah')}
@@ -142,7 +142,7 @@ export default function Footer({
           className={"border-t border-primary-foreground/20 pt-8 text-sm opacity-80 text-center"}
         >
           © {new Date().getFullYear()}{' '}
-          {message('footer.company', 'Alshoaala Marble')}.{' '}
+          {message('footer.company', 'Elegant Torch')}.{' '}
           {message('footer.rights', 'All rights reserved')}.
         </div>
       </div>

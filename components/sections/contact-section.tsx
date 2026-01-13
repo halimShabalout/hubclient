@@ -4,6 +4,8 @@ import { useLanguage } from '@/components/language-provider'
 import { useCreateContactRequest } from '@/lib/hooks/useContactRequest'
 import { useState } from 'react'
 import { ContactInfo } from '@/lib/types/ContactInfo'
+import { SiWhatsapp} from 'react-icons/si'
+import { Phone, Mail } from 'lucide-react'
 
 interface ContactSectionProps {
   contactInfo: ContactInfo | null
@@ -146,37 +148,37 @@ const ContactSection = ({ contactInfo, lang }: ContactSectionProps) => {
         {/* Direct Contact Info */}
         {contactInfo && (
           <div className="mt-12 pt-12 border-t border-border">
-            <p className="text-center text-muted-foreground mb-6">
+            <p className="text-center text-muted-foreground mb-12 text-lg font-medium">
               {message('contact.direct', 'Or contact us directly:')}
             </p>
 
-            <div className={`flex flex-wrap justify-center gap-8`}>
-
-              <div>
-                <p className="font-semibold">{message('contact.phone', 'Phone')}</p>
-                <p className="text-muted-foreground" dir="ltr">
-                  {contactInfo.phone}
-                </p>
+            <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 max-w-5xl mx-auto">
+              {/* Phone */}
+              <div className="flex-1 flex flex-col items-center bg-white/10 backdrop-blur-sm p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                <span className="text-3xl mb-2"><Phone/></span>
+                <p className="font-semibold text-foreground/90 mb-1">{message('contact.phone', 'Phone')}</p>
+                <p className="text-foreground/90" dir="ltr">{contactInfo.phone}</p>
               </div>
 
-              <div>
-                <p className="font-semibold">{message('contact.email', 'Email')}</p>
-                <p className="text-muted-foreground" dir="ltr">
-                  {contactInfo.email}
-                </p>
+              {/* Email */}
+              <div className="flex-1 flex flex-col items-center bg-white/10 backdrop-blur-sm p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                <span className="text-3xl mb-2"><Mail/></span>
+                <p className="font-semibold text-foreground/90 mb-1">{message('contact.email', 'Email')}</p>
+                <p className="text-foreground/90" dir="ltr">{contactInfo.email}</p>
               </div>
 
-              <div>
-                <p className="font-semibold">{message('contact.whatsapp', 'WhatsApp')}</p>
+              {/* WhatsApp */}
+              <div className="flex-1 flex flex-col items-center bg-white/10 backdrop-blur-sm p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                <span className=" text-3xl mb-2"><SiWhatsapp/></span>
+                <p className="font-semibold text-foreground/90 mb-1">{message('contact.whatsapp', 'WhatsApp')}</p>
                 <a
                   href={`https://wa.me/${contactInfo.whatsapp}`}
-                  className="text-accent hover:underline"
+                  className="text-foreground/90 hover:text-accent transition-colors"
                   dir="ltr"
                 >
                   {contactInfo.whatsapp}
                 </a>
               </div>
-
             </div>
           </div>
         )}
