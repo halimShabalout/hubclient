@@ -44,21 +44,21 @@ export async function generateMetadata(
   }
 
   return {
-    title: 'About Us | Alshoaala Marble',
+    title: 'About Us | Elegant Torch',
     description:
-      'Learn about Alshoaala Marble, our story, mission, vision, and values in delivering premium marble and natural stone solutions.',
+      'Learn about Elegant Torch, our story, mission, vision, and values in delivering premium marble and natural stone solutions.',
     openGraph: {
-      title: 'About Us | Alshoaala Marble',
+      title: 'About Us | Elegant Torch',
       description:
-        'Discover the story and expertise behind Alshoaala Marble in the marble and natural stone industry.',
+        'Discover the story and expertise behind Elegant Torch in the marble and natural stone industry.',
       url: '/en/about',
-      siteName: 'Alshoaala Marble',
+      siteName: 'Elegant Torch',
       images: [
         {
           url: '/og/about.jpg',
           width: 1200,
           height: 630,
-          alt: 'About Us – Alshoaala Marble',
+          alt: 'About Us – Elegant Torch',
         },
       ],
       type: 'website',

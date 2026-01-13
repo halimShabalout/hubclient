@@ -25,11 +25,11 @@ export default function Navbar() {
         src={
           theme === 'dark'
             ? language === 'en'
-              ? '/light-mode-en.png'
-              : '/light-mode-ar.png'
+              ? '/en-dark-mode.png'
+              : '/ar-dark-mode.png'
             : language === 'en'
-              ? '/dark-mode-en.png'
-              : '/dark-mode-ar.png'
+              ? '/en-light-mode.png'
+              : '/ar-light-mode.png'
         }
         alt="Logo"
         className={`${width} ${height} object-contain`}
@@ -47,7 +47,6 @@ export default function Navbar() {
         className="p-2 hover:bg-secondary rounded-lg inline-flex items-center gap-1 text-sm font-bold md:text-sm"
       >
         <Globe className="w-4 h-4 md:w-5 md:h-5" />
-        <span>{language === 'en' ? (direction === 'rtl' ? 'العربية' : 'AR') : (direction === 'rtl' ? 'English' : 'EN')}</span>
       </button>
     </div>
   )

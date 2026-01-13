@@ -7,11 +7,11 @@ export default function manifest(): MetadataRoute.Manifest {
   const isRTL = lang === 'ar'
 
   return {
-    name: isRTL ? 'الشعلة للرخام' : 'Alshoaala Marble',
-    short_name: isRTL ? 'الشعلة' : 'Alshoaala',
+    name: isRTL ? 'الشعلة الراقية' : 'Elegant Torch',
+    short_name: isRTL ? 'رخام' : 'marble',
     description: isRTL
       ? 'اكتشف الرخام والحجر الطبيعي المتميز من الشعلة للرخام في جدة – مطابخ، أحواض، طاولات، بورسلين، جرانيت.'
-      : 'Discover premium natural marble and stone from Alshoaala Marble in Jeddah – kitchens, sinks, tables, porcelain, granite.',
+      : 'Discover premium natural marble and stone from Elegant Torch in Jeddah – kitchens, sinks, tables, porcelain, granite.',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
@@ -25,11 +25,6 @@ export default function manifest(): MetadataRoute.Manifest {
       {
         src: '/logo.png',
         sizes: '192x192',
-        type: 'image/png',
-      },
-      {
-        src: '/main-logo.png',
-        sizes: '512x512',
         type: 'image/png',
       },
     ],

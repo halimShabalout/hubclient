@@ -11,7 +11,7 @@ interface LanguageContextType {
   language: Language
   toggleLanguage: () => void
   direction: 'ltr' | 'rtl'
-  message: (key: string) => string
+  message: (key: string, fallback?: string) => string
 }
 
 const LanguageContext = createContext<LanguageContextType | null>(null)
@@ -41,7 +41,7 @@ export function LanguageProvider({
     [language]
   )
 
-const message = (key: string, fallback?: string) => messages[key] ?? fallback ?? key
+  const message = (key: string, fallback?: string) => messages[key] ?? fallback ?? key
 
   const direction: 'ltr' | 'rtl' =
     RTL_LANGS.includes(language) ? 'rtl' : 'ltr'

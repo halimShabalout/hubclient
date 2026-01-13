@@ -46,9 +46,17 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <main className="flex flex-col">
       <HeroSection slides={heroRes.data} lang={lang} />
+      <div className="h-12 bg-gradient-to-b from-black/0 to-secondary/10"></div>
       <CategoriesSection categories={categoriesRes.data} lang={lang} />
+      <div className="relative">
+        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-secondary/50 to-white/0"></div>
+      </div>
       <ProductsSection products={productsRes.data} lang={lang} />
+      <div className="flex justify-center my-12">
+        <div className="w-24 h-[2px] bg-accent/40 rounded-full"></div>
+      </div>
       <AboutUsSection aboutUs={aboutRes.data} lang={lang} />
+      <div className="h-12 bg-gradient-to-b from-muted/5 to-background/0"></div>
       <ContactSection contactInfo={contactRes.data} lang={lang} />
     </main>
   )
