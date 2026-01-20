@@ -52,7 +52,7 @@ const ProductDetails = ({ product, lang }: ProductDetailsProps) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left: Main Image */}
           <div className="space-y-4">
-            <div className="relative h-96 lg:h-[500px] rounded-lg overflow-hidden bg-secondary group">
+            <div className="relative w-full aspect-[10/7] rounded-lg overflow-hidden bg-secondary group">
               <Image
                 src={
                   images[currentImageIndex]
@@ -62,7 +62,7 @@ const ProductDetails = ({ product, lang }: ProductDetailsProps) => {
                 alt={name}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-contain group-hover:scale-105 transition-transform duration-700"
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
 
               {/* Prev / Next Buttons */}

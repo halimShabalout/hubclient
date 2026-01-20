@@ -10,7 +10,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: isRTL ? 'الشعلة الراقية' : 'Elegant Torch',
     short_name: isRTL ? 'رخام' : 'marble',
     description: isRTL
-      ? 'اكتشف الرخام والحجر الطبيعي المتميز من الشعلة للرخام في جدة – مطابخ، أحواض، طاولات، بورسلين، جرانيت.'
+      ? 'اكتشف الرخام والحجر الطبيعي المتميز من الشعلة الراقية في جدة – مطابخ، أحواض، طاولات، بورسلين، جرانيت.'
       : 'Discover premium natural marble and stone from Elegant Torch in Jeddah – kitchens, sinks, tables, porcelain, granite.',
     start_url: '/',
     display: 'standalone',

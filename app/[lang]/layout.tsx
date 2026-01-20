@@ -21,19 +21,20 @@ export async function generateMetadata({
 
   if (lang === 'ar') {
     return {
-      title: "رخام جدة | الشعلة الراقية للرخام والجرانيت والبورسلان",
+      title: "الشعلة الراقية – أفضل رخام وجرانيت وبورسلان في جدة",
       description:
-        "الشعلة الراقية في جدة متخصصة في توريد وتصنيع الرخام الطبيعي والجرانيت والبورسلان. مطابخ رخام، مغاسل فاخرة، طاولات، وأعمال حجرية بجودة عالية وأسعار تنافسية.",
+        "الشعلة الراقية… حيث يلتقي التميّز بالجودة. منتجات مختارة بعناية من الرخام الطبيعي، الجرانيت، والبورسلان لرفع مستوى مساحتك بأناقة وجودة عالية.",
       alternates: { canonical: "/ar" },
     }
   }
 
   return {
-    title: "Jeddah Marble | Elegant Torch for Marble, Granite & Porcelain",
+    title: "Elegant Torch – Premium Marble, Granite & Porcelain in Jeddah",
     description:
-      "Elegant Torch in Jeddah specializes in premium marble, granite, and porcelain supply and fabrication. Custom kitchens, sinks, tables, and high-quality stone solutions.",
+      "Elegant Torch… where excellence meets quality. Carefully selected marble, granite, and porcelain products to elevate your space with elegance and high-quality craftsmanship.",
     alternates: { canonical: "/en" },
   }
+
 }
 
 export default async function LangLayout({ children, params }: LayoutProps) {
