@@ -9,38 +9,41 @@ import type { Metadata } from 'next'
 
 interface LayoutProps {
   children: ReactNode
-  params: Promise<{ lang: string }>;
-
+  params: Promise<{ lang: string }>
 }
 
+/* =========================
+   Metadata
+========================= */
 export async function generateMetadata({
   params,
 }: LayoutProps): Promise<Metadata> {
-  const { lang: langParam } = await params;
-  const lang: 'en' | 'ar' = langParam === 'en' ? 'en' : 'ar';
+  const { lang: langParam } = await params
+  const lang: 'en' | 'ar' = langParam === 'en' ? 'en' : 'ar'
 
   if (lang === 'ar') {
     return {
-      title: "الشعلة الراقية – أفضل رخام وجرانيت وبورسلان في جدة",
+      title: 'الشعلة الراقية للرخام في جدة | جودة فاخرة وتصاميم مميزة',
       description:
-        "الشعلة الراقية… حيث يلتقي التميّز بالجودة. منتجات مختارة بعناية من الرخام الطبيعي، الجرانيت، والبورسلان لرفع مستوى مساحتك بأناقة وجودة عالية.",
-      alternates: { canonical: "/ar" },
+        'الشعلة الراقية تقدم أفضل أنواع الرخام الطبيعي والجرانيت والبورسلان في جدة. منتجات مختارة بعناية تضيف لمسة فخامة لمساحتك.',
+      alternates: { canonical: '/ar' },
     }
   }
 
   return {
-    title: "Elegant Torch – Premium Marble, Granite & Porcelain in Jeddah",
+    title: 'Elegant Torch Marble in Jeddah | Premium Stone & Surfaces',
     description:
-      "Elegant Torch… where excellence meets quality. Carefully selected marble, granite, and porcelain products to elevate your space with elegance and high-quality craftsmanship.",
-    alternates: { canonical: "/en" },
+      'Elegant Torch offers premium marble, granite, and porcelain in Jeddah. Carefully selected materials to elevate your space with elegance and quality.',
+    alternates: { canonical: '/en' },
   }
-
 }
 
+/* =========================
+   Layout
+========================= */
 export default async function LangLayout({ children, params }: LayoutProps) {
-  const { lang: langParam } = await params;
-  const lang: 'en' | 'ar' = langParam === 'en' ? 'en' : 'ar';
-  const dir = lang === 'ar' ? 'rtl' : 'ltr'
+  const { lang: langParam } = await params
+  const lang: 'en' | 'ar' = langParam === 'en' ? 'en' : 'ar'
 
   const [resSocialLinks, resContactInfo] = await Promise.all([
     fetchAllSocialLinks(),
@@ -52,9 +55,11 @@ export default async function LangLayout({ children, params }: LayoutProps) {
 
   return (
     <LanguageProvider userLang={lang}>
-      <div>
+      <div className="flex min-h-screen flex-col">
         <Navbar />
-        <main>{children}</main>
+        <main className="flex-1">
+          {children}
+        </main>
         <Footer
           language={lang}
           contactInfo={contactInfo}

@@ -16,13 +16,12 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL
   const [currentSlide, setCurrentSlide] = useState(0)
 
+  // Auto slide interval
   useEffect(() => {
     if (slides.length <= 1) return
-
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
     }, 5000)
-
     return () => clearInterval(interval)
   }, [slides.length])
 
@@ -47,16 +46,13 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
               }`}
           >
             <Image
-              src={
-                slide.imageUrl
-                  ? `${baseUrl}${slide.imageUrl}`
-                  : '/images/no_image.png'
-              }
+              src={slide.imageUrl ? `${baseUrl}${slide.imageUrl}` : '/images/no_image.png'}
               alt={slide.translated.title || 'Hero Slide'}
               fill
-              priority={index === 0}
               sizes="100vw"
               className="object-cover"
+              priority={index === 0}
+              loading={index === 0 ? 'eager' : 'lazy'}
             />
           </div>
         ))}
@@ -70,16 +66,16 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
         className="relative z-30 flex flex-col items-center justify-center h-full text-center px-4"
         style={{ direction }}
       >
-        <div className="bg-black/30 p-6 rounded-lg">
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
+        <div className="bg-black/30 p-6 rounded-lg max-w-[90vw] md:max-w-3xl">
+          <h1 className="text-2xl md:text-4xl font-semibold text-white mb-4">
             {message('hero.topText', 'Elevate Your Space with Premium Marble')}
           </h1>
 
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6">
             {slides[currentSlide].translated.title}
           </h2>
 
-          <p className="text-lg md:text-2xl text-white/90 mb-8 max-w-3xl">
+          <p className="text-base md:text-xl text-white/90 mb-8 max-w-3xl">
             {slides[currentSlide].translated.subTitle}
           </p>
 
@@ -94,7 +90,7 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
         </div>
       </div>
 
-      {/* Navigation */}
+      {/* Navigation & Indicators*/}
       {slides.length > 1 && (
         <>
           {/* Previous */}
@@ -118,24 +114,21 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
           >
             ›
           </button>
+
+          {/* Indicators */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-3 rounded-full transition-all duration-300 ${index === currentSlide ? 'bg-accent w-8' : 'bg-white/50 w-3 hover:bg-white/70'
+                  }`}
+                aria-label={`Slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </>
       )}
-
-
-      {/* Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`h-3 rounded-full transition-all duration-300 ${index === currentSlide
-              ? 'bg-accent w-8'
-              : 'bg-white/50 w-3 hover:bg-white/70'
-              }`}
-            aria-label={`Slide ${index + 1}`}
-          />
-        ))}
-      </div>
     </section>
   )
 }
