@@ -46,15 +46,17 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 z-20' : 'opacity-0 z-10'
               }`}
           >
-            <img
+            <Image
               src={
                 slide.imageUrl
                   ? `${baseUrl}${slide.imageUrl}`
                   : '/images/no_image.png'
               }
               alt={slide.translated.title || 'Hero Slide'}
+              fill
+              priority={index === 0}
               sizes="100vw"
-              className="object-cover w-full h-full"
+              className="object-cover"
             />
           </div>
         ))}
@@ -65,34 +67,32 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
 
       {/* Content */}
       <div
-        className="relative z-30 flex flex-col items-center justify-center h-full text-center px-2 sm:px-4"
+        className="relative z-30 flex flex-col items-center justify-center h-full text-center px-4"
         style={{ direction }}
       >
-        <div className="bg-black/40 p-4 sm:p-6 rounded-xl max-w-2xl">
-          <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 leading-tight max-w-md mx-auto line-clamp-2">
+        <div className="bg-black/30 p-6 rounded-lg">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
             {message('hero.topText', 'Elevate Your Space with Premium Marble')}
           </h1>
 
-
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-6xl font-bold text-white mb-4 leading-tight break-words">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
             {slides[currentSlide].translated.title}
           </h2>
 
-          <p className="text-sm sm:text-base md:text-xl text-white/90 mb-6 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-2xl text-white/90 mb-8 max-w-3xl">
             {slides[currentSlide].translated.subTitle}
           </p>
 
           {slides[currentSlide].translated.ctaText && (
             <Link
               href={slides[currentSlide].ctaLink || `/${lang}/products`}
-              className="px-6 py-2.5 sm:px-8 sm:py-3 bg-accent text-accent-foreground text-sm sm:text-base font-semibold rounded-lg hover:opacity-90 transition"
+              className="px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-lg hover:opacity-90 transition"
             >
               {slides[currentSlide].translated.ctaText}
             </Link>
           )}
         </div>
       </div>
-
 
       {/* Navigation */}
       {slides.length > 1 && (
@@ -102,7 +102,7 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
             onClick={() =>
               setCurrentSlide((prev) => (prev + 1) % slides.length)
             }
-            className="absolute right-1 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 hover:bg-black/70 text-white shadow-lg"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 hover:bg-black/70 text-white hidden md:block shadow-lg"
             aria-label="Previous Slide"
           >
             ‹
@@ -113,7 +113,7 @@ const HeroSection = ({ slides, lang }: HeroSectionProps) => {
             onClick={() =>
               setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
             }
-            className="absolute left-1 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 hover:bg-black/70 text-white shadow-lg"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 hover:bg-black/70 text-white hidden md:block shadow-lg"
             aria-label="Next Slide"
           >
             ›

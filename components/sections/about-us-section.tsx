@@ -3,6 +3,7 @@
 import { useLanguage } from '@/components/language-provider'
 import Link from 'next/link'
 import { AboutUs } from '@/lib/types/AboutUs'
+import Image from 'next/image'
 
 interface AboutUsSectionProps {
   aboutUs: AboutUs
@@ -25,14 +26,16 @@ const AboutUsSection = ({ aboutUs, lang }: AboutUsSectionProps) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center ">
 
           {/* Image */}
-          <div className={`relative h-96 rounded-2xl overflow-hidden hover-lift p-2 md:order-2`}>
-            <img
+          <div className="relative w-full h-96 md:h-full rounded-2xl overflow-hidden p-2 md:order-2">
+            <Image
               src={aboutUs.imageUrl ? `${baseUrl}${aboutUs.imageUrl}` : '/images/no_image.png'}
               alt={message('aboutus.image.alt', 'About Elegant Torch')}
-              className="w-full h-80 md:h-full rounded-2xl object-cover shadow-lg border border-white/20 dark:border-black/20"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover rounded-2xl shadow-lg border border-white/20 dark:border-black/20"
+              priority
             />
           </div>
-
           {/* Content */}
           <div
             className={`${direction === 'rtl'
